@@ -22,8 +22,8 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText edtTxtEamil,edtTxtPassword,edtTxtName,edtTxtPhone;
-    String email,password,name,phone;
+    EditText edtTxtEamil,edtTxtPassword,edtTxtName,edtTxtPhone,edtTxtAddress,edtTxtVahicleType;
+    String email,password,name,phone,address,vahicletype;
 
     Button btnSignUp;
     FirebaseAuth mAuth;
@@ -52,14 +52,18 @@ public class MainActivity extends AppCompatActivity {
                 password = edtTxtPassword.getText().toString().trim();
                 name = edtTxtName.getText().toString().trim();
                 phone= edtTxtPhone.getText().toString().trim();
+                address= edtTxtAddress.getText().toString().trim();
+                vahicletype= edtTxtVahicleType.getText().toString().trim();
 
 
                 if(Constants.isConnectedtoInternet(MainActivity.this)){
-                    if(email.isEmpty() && password.isEmpty() && name.isEmpty() && phone.isEmpty()){
+                    if(email.isEmpty() && password.isEmpty() && name.isEmpty() && phone.isEmpty() && address.isEmpty() && vahicletype.isEmpty()){
                         edtTxtEamil.setError("Please enter Email");
                         edtTxtPassword.setError("Please enter Password");
                         edtTxtName.setError("Please enter Name");
                         edtTxtPhone.setError("Please enter Phone Number");
+                        edtTxtAddress.setError("Please enter Your Address");
+                        edtTxtVahicleType.setError("Please enter Your Vahicle type");
                         edtTxtEamil.requestFocus();
                     }else{
                         performSignUp();
@@ -88,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveDataToDb() {
+        Toast.makeText(this, "in", Toast.LENGTH_SHORT).show();
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("DriverInfo");
         String currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -96,12 +101,14 @@ public class MainActivity extends AppCompatActivity {
         hashMap.put("password",password);
         hashMap.put("name",name);
         hashMap.put("phone",phone);
+        hashMap.put("address",address);
+        hashMap.put("vahicletype",vahicletype);
+        hashMap.put("availability","available");
 
         dbRef.child(currentUID).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
              if(task.isSuccessful()){
-                 Toast.makeText(MainActivity.this, "DataSaved", Toast.LENGTH_SHORT).show();
                  progressDialog.dismiss();
                  startActivity(new Intent(MainActivity.this,LoginActivity.class));
              }
@@ -113,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
         edtTxtEamil=findViewById(R.id.edt_txt_email);
         edtTxtPassword=findViewById(R.id.edt_txt_password);
         edtTxtPhone=findViewById(R.id.edt_txt_phone);
+        edtTxtAddress=findViewById(R.id.edt_txt_address);
         edtTxtName=findViewById(R.id.edt_txt_name);
+        edtTxtVahicleType=findViewById(R.id.edt_txt_vahicle_type);
         btnSignUp = findViewById(R.id.btn_signup);
     }
 

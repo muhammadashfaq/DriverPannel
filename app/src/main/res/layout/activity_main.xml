@@ -71,6 +71,31 @@
             android:textSize="18sp"
             android:inputType="phone"
             />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edt_txt_address"
+            android:hint="Address"
+            android:drawableLeft="@drawable/ic_edit_location_black_24dp"
+            android:drawablePadding="15dp"
+            android:textColorHint="@color/colorBlack"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:inputType="text"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edt_txt_vahicle_type"
+            android:hint="Vahicle type (ambulance or bike)"
+            android:drawableLeft="@drawable/ic_time_to_leave_black_24dp"
+            android:drawablePadding="15dp"
+            android:textColorHint="@color/colorBlack"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:inputType="text"
+            />
+
 
         <Button
             android:id="@+id/btn_signup"
